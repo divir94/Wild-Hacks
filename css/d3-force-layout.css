@@ -94,6 +94,12 @@ h3 {
     /*z-index: 10;*/
 }
 
+.slider-text {
+    text-align: center;
+    color: white;
+    font-weight: normal;
+}
+
 /* NAVBAR */
 
 #navbar {
@@ -179,6 +185,26 @@ h3 {
    /*color: white;*/
 }
 
-#search:
+
+a.menu:hover
+{
+     background-color:Black !important;
+     font-family:Tahoma, Arial, Helvetica, sans-serif;
+     font-size:12px;color:#999999 
+}
+
+.ui-menu {
+    width: 90%;
+}
+
+.ui-menu-item {
+    background-color: rgba(255,255,255,0.5);
+        width: 90%;
+
+}
+
+.ui-menu-item:hover {
+    background-color: rgba(255,255,255,0.8);
+}
 
 

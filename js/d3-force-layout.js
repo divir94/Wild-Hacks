@@ -217,3 +217,9 @@ var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 elems.forEach(function(html) {
   var switchery = new Switchery(html, { color: '#41b7f1' });
 });
+
+var changeCheckbox = document.querySelector('.js-check-change');
+
+changeCheckbox.onchange = function() {
+  alert(changeCheckbox.checked);
+};
