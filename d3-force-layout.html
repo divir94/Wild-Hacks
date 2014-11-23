@@ -4,12 +4,18 @@
 <head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="js/jquery-1.10.2.js"></script>
+  <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"/>
   <link rel="stylesheet" type="text/css" href="css/d3-force-layout.css">
 </head>
 <body>
-  	<form class="noselect">
-    	<h3> Link threshold <span id="silderMin"></span> <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> <span id="silderMax"></span> </h3>
+  	<form  class="noselect">
+    	<h3> Link threshold <span id="sliderMin"></span> <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> <span id="sliderMax"></span> </h3>
   	</form>
+  	<div class="ui-widget">
+	   <input id="search">
+	    <button type="button" onclick="searchNode()">Search</button>
+	</div>
 
   	<div id="tooltip" class="hidden noselect">
         <p id="tooltip-value"></p>
@@ -19,4 +25,3 @@
 
 <script src="js/d3-force-layout.js"></script>
 </html>
-

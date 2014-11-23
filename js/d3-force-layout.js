@@ -28,19 +28,39 @@ function threshold(thresh) {
     });
 }
 
+//adjust threshold
+// function threshold(thresh) {
+//     debugger;
+//     graphRec = JSON.parse(JSON.stringify(graph));
+//     graph.links.splice(0, graph.links.length);
+//     for (var i = 0; i < graphRec.links.length; i++) {
+//       if (graphRec.links[i].value > thresh) {graph.links.push(graphRec.links[i]);}
+//     }
+//     restart();
+// }
+//Restart the visualisation after any node and link changes
+function restart() {
+  link = link.data(graph.links);
+  link.exit().remove();
+  link.enter().insert("line", ".node").attr("class", "link");
+  node = node.data(graph.nodes);
+  node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
+  force.start();
+}
+
 function update_slider_range(edges) {
-    min_link_value = Math.min.apply(Math,edges.map(function(o){return o.value;}))
-    max_link_value = Math.max.apply(Math,edges.map(function(o){return o.value;}))
+    min_link_value = Math.min.apply(Math,edges.map(function(o){return o.value;}));
+    max_link_value = Math.max.apply(Math,edges.map(function(o){return o.value;}));
     $( "#thersholdSlider" ).attr( "max", max_link_value );
-    $( "#silderMin" ).html( min_link_value );
-    $( "#silderMax" ).html( max_link_value );
+    $( "#sliderMin" ).html( min_link_value );
+    $( "#sliderMax" ).html( max_link_value );
 }
 
 function add_label(d) {
   //Update the tooltip position and value
   d3.select("#tooltip")
     .style("left", d.x + "px")
-    .style("top", d.y + "px")
+    .style("top", d.y + 25 + "px")
     .select("#tooltip-value").text(d.name);
 
   //Show the tooltip
@@ -51,7 +71,29 @@ function hide_label() {
   d3.select("#tooltip").classed("hidden", true);
 }
 
-d3.json("../json/test.json", function(error, graph) {
+
+// search node
+function searchNode() {
+  //find the node
+  var selectedVal = $('#search').val();
+
+  if (selectedVal == "") {
+    // show nodes
+    d3.selectAll(".node, .link")
+      .transition()
+      .duration(3000)
+      .style("opacity", 1);
+  } else {
+    // hide nodes
+    var selected = node.filter(function (d, i) {
+        return d.name != selectedVal;
+    });
+    selected.style("opacity", "0");
+    link.style("opacity", "0");
+  }
+};
+
+d3.json("../json/new-fb.json", function(error, graph) {
     window.graph = graph
 
     // initialize graph
@@ -84,7 +126,6 @@ d3.json("../json/test.json", function(error, graph) {
 
     // this function looks up whether a pair are neighbours
     function neighboring(a, b) {
-        //console.log(a)
         return linkedByIndex[a.id + "," + b.id];
     }
     function connectedNodes() {
@@ -135,8 +176,20 @@ d3.json("../json/test.json", function(error, graph) {
       //.call(force.drag)
       .on("mouseover", function(d) { add_label(d) })
       .on("mouseout", function(d) { hide_label() })
-      .on('dblclick', connectedNodes)
-      .filter(function(d) { return d.group == 1; });
+      .on('dblclick', connectedNodes);
+
+
+    // search autocomplete
+    var optArray = [];
+    for (var i = 0; i < graph.nodes.length - 1; i++) {
+        optArray.push(graph.nodes[i].name);
+    }
+    optArray = optArray.sort();
+    $(function () {
+        $("#search").autocomplete({
+            source: optArray
+        });
+    });
 
     force.on("tick", function() {
         link.attr("x1", function(d) { return d.source.x; })
