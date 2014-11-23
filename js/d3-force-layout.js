@@ -9,26 +9,6 @@ function threshold(thresh) {
     });
 }
 
-//adjust threshold
-// function threshold(thresh) {
-//     debugger;
-//     graphRec = JSON.parse(JSON.stringify(graph));
-//     graph.links.splice(0, graph.links.length);
-//     for (var i = 0; i < graphRec.links.length; i++) {
-//       if (graphRec.links[i].value > thresh) {graph.links.push(graphRec.links[i]);}
-//     }
-//     restart();
-// }
-
-//Restart the visualisation after any node and link changes
-function restart() {
-  link = link.data(graph.links);
-  link.exit().remove();
-  link.enter().insert("line", ".node").attr("class", "link");
-  node = node.data(graph.nodes);
-  node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
-  force.start();
-}
 
 function update_slider_range(edges) {
   min_link_value = Math.min.apply(Math,edges.map(function(o){return o.value;}));
@@ -100,6 +80,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
   $("#search-button").on('click', searchNode);
 
   function add_label(d) {
+    console.log(node[0][d.id])
     //Update the tooltip position and value
     categories_on = [];
     for ( var i = 0; i < changeCheckboxes.length; i++ ) {
@@ -155,7 +136,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
     .attr("class", "node")
     .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*2 : 1; })
     .style("fill", function(d) { return color(d.size); })
-    .call(force.drag)
+    //.call(force.drag)
     .on("mouseover", function(d) { add_label(d) })
     .on("mouseout", function(d) { hide_label() })
     .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
