@@ -18,23 +18,17 @@ function edge_index_to_id(graph) {
   return edges;
 }
 
-//adjust threshold
-function threshold(thresh) {
-    graph.links.splice(0, graph.links.length);
-        for (var i = 0; i < graphRec.links.length; i++) {
-            if (graphRec.links[i].value > thresh) {graph.links.push(graphRec.links[i]);}
-        }
-    restart();
+function to_string(obj) {
+    return JSON.stringify(obj, null, 2);
 }
 
-//Restart the visualisation after any node and link changes
-function restart() { 
-    link = link.data(graph.links);
-    link.exit().remove();
-    link.enter().insert("line", ".node").attr("class", "link");
-    node = node.data(graph.nodes);
-    node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
-    force.start();
+//adjust threshold
+function threshold(thresh) {
+    link.attr('visibility', function(d){
+        return (d.value >= thresh) ? 'visible' : 'hidden';
+    });
+
+    force.nodes().filter(function(d){console.log(d)});
 }
 
 d3.json("test.json", function(error, graph) {
@@ -58,7 +52,7 @@ d3.json("test.json", function(error, graph) {
     // add links and nodes
 
     edges = edge_index_to_id(graph)
-    graphRec = JSON.parse(JSON.stringify(graph));
+    // window.graphRec = JSON.parse(JSON.stringify(graph));
 
     force
       .nodes(graph.nodes)
@@ -85,7 +79,6 @@ d3.json("test.json", function(error, graph) {
 
     node.append("title")
       .text(function(d) { return d.name; });
-
 
     force.on("tick", function() {
         link.attr("x1", function(d) { return d.source.x; })
