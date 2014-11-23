@@ -3,17 +3,20 @@
 <html>
 <head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script type="text/javascript">
-  </script>
-  <link rel="stylesheet" type="text/css" href="d3-force-layout.css">
+  <script src="js/jquery-1.10.2.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/d3-force-layout.css">
 </head>
 <body>
-  <form>
-    <h3> Link threshold 0 <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> 10 </h3>
-  </form>
+  	<form>
+    	<h3> Link threshold <span id="silderMin"></span> <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> <span id="silderMax"></span> </h3>
+  	</form>
+
+  	<div id="tooltip" class="hidden">
+        <p id="tooltip-value"></p>
+	</div>
 
 </body>
 
-<script src="d3-force-layout.js"></script>
+<script src="js/d3-force-layout.js"></script>
 </html>
 

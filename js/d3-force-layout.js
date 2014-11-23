@@ -3,10 +3,10 @@ function edge_index_to_id(graph) {
   var edges = [];
   graph.links.forEach(function(e) {
       var sourceNode = graph.nodes.filter(function(n) {
-          return n.name === e.source;
+          return n.id === e.source;
       })[0],
           targetNode = graph.nodes.filter(function(n) {
-              return n.name === e.target;
+              return n.id === e.target;
           })[0];
 
       edges.push({
@@ -22,27 +22,47 @@ function to_string(obj) {
     return JSON.stringify(obj, null, 2);
 }
 
-//adjust threshold
 function threshold(thresh) {
     link.attr('visibility', function(d){
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
-
-    force.nodes().filter(function(d){console.log(d)});
 }
 
-d3.json("test.json", function(error, graph) {
+function update_slider_range(edges) {
+    min_link_value = Math.min.apply(Math,edges.map(function(o){return o.value;}))
+    max_link_value = Math.max.apply(Math,edges.map(function(o){return o.value;}))
+    $( "#thersholdSlider" ).attr( "max", max_link_value );
+    $( "#silderMin" ).html( min_link_value );
+    $( "#silderMax" ).html( max_link_value );
+}
+
+function add_label(d) {
+  //Update the tooltip position and value
+  d3.select("#tooltip")
+    .style("left", d.x + "px")
+    .style("top", d.y + "px")
+    .select("#tooltip-value").text(d.name);
+
+  //Show the tooltip
+  d3.select("#tooltip").classed("hidden", false);
+}
+
+function hide_label() {
+  d3.select("#tooltip").classed("hidden", true);
+}
+
+d3.json("../json/fb.json", function(error, graph) {
     window.graph = graph
 
     // initialize graph
-    var width = 960,
-        height = 500;
+    var width = 1024,
+        height = 768;
 
     var color = d3.scale.category20();
 
     window.force = d3.layout.force()
-        .charge(-120)
-        .linkDistance(30)
+        .charge(-10)
+        .linkDistance(200)
         .size([width, height]);
 
     var svg = d3.select("body").append("svg")
@@ -50,9 +70,8 @@ d3.json("test.json", function(error, graph) {
         .attr("height", height);
 
     // add links and nodes
-
-    edges = edge_index_to_id(graph)
-    // window.graphRec = JSON.parse(JSON.stringify(graph));
+    edges = edge_index_to_id(graph);
+    update_slider_range(edges);
 
     force
       .nodes(graph.nodes)
@@ -65,7 +84,7 @@ d3.json("test.json", function(error, graph) {
       .enter()
       .append("line")
       .attr("class", "link")
-      .style("stroke-width", function(d) { return Math.sqrt(d.value); });
+      .style("stroke-width", function(d) { return Math.log(d.value); });
 
     // make nodes
     window.node = svg.selectAll(".node")
@@ -73,12 +92,12 @@ d3.json("test.json", function(error, graph) {
       .enter()
       .append("circle")
       .attr("class", "node")
-      .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
-      .call(force.drag);
+      .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size) : 1; })
+      .style("fill", function(d) { return color(d.size); })
+      //.call(force.drag)
+      .on("mouseover", function(d) { add_label(d) })
+      .on("mouseout", function(d) { hide_label() });
 
-    node.append("title")
-      .text(function(d) { return d.name; });
 
     force.on("tick", function() {
         link.attr("x1", function(d) { return d.source.x; })
