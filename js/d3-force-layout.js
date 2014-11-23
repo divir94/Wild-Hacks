@@ -182,6 +182,30 @@ d3.json("../json/fb-4.json", function(error, graph) {
       }
   }
 
+  function hide_nodes(nodes_array) {
+    node.style("opacity", 1);
+    link.style("opacity", 1);
+
+    remove_nodes = [];
+
+    node.style("opacity", function (o) { 
+      remove = $.inArray(o.category, nodes_array) == -1;
+      if (remove) { remove_nodes.push(o.id) };
+      return (remove) ? 0 : 1; 
+    });
+
+    console.log(remove_nodes);
+
+    link.style("opacity", function (e) { 
+      console.log(e.source.id, e.target.id);
+      connects_source = $.inArray(e.source.id, remove_nodes) != -1;
+      connects_target = $.inArray(e.target.id, remove_nodes) != -1;
+      return (connects_source || connects_target) ? 0 : 1; 
+    });
+  }
+
+  hide_nodes(["Location/Time Groups", "Student Organization/Club Groups"]);
+
   // search autocomplete
   var optArray = [];
   for (var i = 0; i < graph.nodes.length - 1; i++) {
@@ -222,3 +246,5 @@ var changeCheckbox = document.querySelector('.js-check-change');
 changeCheckbox.onchange = function() {
   alert(changeCheckbox.checked);
 };
+
+
