@@ -3,12 +3,8 @@ function to_string(obj) {
 }
 
 function threshold(thresh) {
-    link.
     link.attr('visibility', function(d){
         console.log(d);
-        if (d.value >= thresh):
-          d.
-
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
 }
@@ -188,9 +184,6 @@ d3.json("../json/fb-4.json", function(error, graph) {
   }
 
   function hide_nodes(nodes_array) {
-    node.style("opacity", 1);
-    link.style("opacity", 1);
-
     remove_nodes = [];
 
     node.style("opacity", function (o) { 
@@ -199,17 +192,12 @@ d3.json("../json/fb-4.json", function(error, graph) {
       return (remove) ? 0 : 1; 
     });
 
-    console.log(remove_nodes);
-
     link.style("opacity", function (e) { 
-      console.log(e.source.id, e.target.id);
       connects_source = $.inArray(e.source.id, remove_nodes) != -1;
       connects_target = $.inArray(e.target.id, remove_nodes) != -1;
       return (connects_source || connects_target) ? 0 : 1; 
     });
   }
-
-  hide_nodes(["Location/Time Groups", "Student Organization/Club Groups"]);
 
   // search autocomplete
   var optArray = [];
@@ -234,26 +222,38 @@ d3.json("../json/fb-4.json", function(error, graph) {
           .attr("cy", function(d) { return d.y; });
   });
 
+  // SWITCHES
+  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+  elems.forEach(function(html) {
+    var switchery = new Switchery(html, { color: '#41b7f1' });
+  });
+
+  var changeCheckboxes = $('.js-check-change');
+
+  changeCheckboxes.onchange = function() {
+    alert(changeCheckbox.checked);
+  };
+
+  for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
+    changeCheckboxes[i].onchange = categories_changed;
+  };
+
+  function categories_changed() {
+    node.style("opacity", 1);
+    link.style("opacity", 1);
+
+    categories_on = [];
+    for ( var i = 0; i < changeCheckboxes.length; i++ ) {
+      if (changeCheckboxes[i].checked) {
+        categories_on.push(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML);
+      }
+    }
+    hide_nodes(categories_on);
+    return;
+  }
+
 });
 
 
 
-// SWITCHES
-
-var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-elems.forEach(function(html) {
-  var switchery = new Switchery(html, { color: '#41b7f1' });
-});
-
-var changeCheckboxes = $('.js-check-change');
-
-
-changeCheckbox.onchange = function() {
-  alert(changeCheckbox.checked);
-};
-
-for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
-    console.log(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML)
- 
-}
