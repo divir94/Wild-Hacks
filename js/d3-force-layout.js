@@ -2,13 +2,15 @@ function to_string(obj) {
     return JSON.stringify(obj, null, 2);
 }
 
-function threshold(thresh) {
-    link.
-    link.attr('visibility', function(d){
-        console.log(d);
-        if (d.value >= thresh):
-          d.
 
+function threshold(thresh) {
+    link.attr('visibility', function(d){
+        console.log(d.source.attr('visibility', 'hidden'));
+        console.log(d.target.attr('visibility', 'hidden'));
+        // if (d.value < thresh) {
+        //   d.source.attr('visibility', 'hidden');
+        //   d.target.attr('visibility', 'hidden');
+        // }
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
 }
@@ -162,6 +164,10 @@ d3.json("../json/fb-4.json", function(error, graph) {
   graph.links.forEach(function (d) {
       linkedByIndex[d.source + "," + d.target] = 1;
   });
+
+
+
+  console.log(Math.max.apply(Math, node[0].map(function(o){return o.__data__.size;})));
 
   // this function looks up whether a pair are neighbours
   function neighboring(a, b) {

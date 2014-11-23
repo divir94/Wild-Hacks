@@ -154,6 +154,7 @@ user-select: none;
 
 .check-text {
     color: white;
+    font-size: .7em;
 }
 
 #sliderMin {
