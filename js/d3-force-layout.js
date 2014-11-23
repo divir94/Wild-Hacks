@@ -51,12 +51,12 @@ function hide_label() {
   d3.select("#tooltip").classed("hidden", true);
 }
 
-d3.json("../json/fb.json", function(error, graph) {
+d3.json("../json/test.json", function(error, graph) {
     window.graph = graph
 
     // initialize graph
     var width = 1024,
-        height = 768;
+        height = 650;
 
     var color = d3.scale.category20();
 
@@ -68,6 +68,44 @@ d3.json("../json/fb.json", function(error, graph) {
     var svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height);
+
+    // show only neighbors
+
+    var toggle = 0;
+    // create an array logging what is connected to what
+    var linkedByIndex = {};
+    for (i = 0; i < graph.nodes.length; i++) {
+        linkedByIndex[graph.nodes[i].id + "," + graph.nodes[i].id] = 1;
+    };
+    graph.links.forEach(function (d) {
+        linkedByIndex[d.source + "," + d.target] = 1;
+    });
+
+
+    // this function looks up whether a pair are neighbours
+    function neighboring(a, b) {
+        //console.log(a)
+        return linkedByIndex[a.id + "," + b.id];
+    }
+    function connectedNodes() {
+        if (toggle == 0) {
+            //Reduce the opacity of all but the neighbouring nodes
+            d = d3.select(this).node().__data__;
+            node.style("opacity", function (o) {
+                return neighboring(d, o) | neighboring(o, d) ? 1 : 0;
+            });
+            link.style("opacity", function (o) {
+                return d.id==o.source.id | d.id==o.target.id ? 1 : 0;
+            });
+            //Reduce the op
+            toggle = 1;
+        } else {
+            //Put them back to opacity=1
+            node.style("opacity", 1);
+            link.style("opacity", 1);
+            toggle = 0;
+        }
+    }
 
     // add links and nodes
     edges = edge_index_to_id(graph);
@@ -96,8 +134,9 @@ d3.json("../json/fb.json", function(error, graph) {
       .style("fill", function(d) { return color(d.size); })
       //.call(force.drag)
       .on("mouseover", function(d) { add_label(d) })
-      .on("mouseout", function(d) { hide_label() });
-
+      .on("mouseout", function(d) { hide_label() })
+      .on('dblclick', connectedNodes)
+      .filter(function(d) { return d.group == 1; });
 
     force.on("tick", function() {
         link.attr("x1", function(d) { return d.source.x; })

@@ -7,11 +7,11 @@
   <link rel="stylesheet" type="text/css" href="css/d3-force-layout.css">
 </head>
 <body>
-  	<form>
+  	<form class="noselect">
     	<h3> Link threshold <span id="silderMin"></span> <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> <span id="silderMax"></span> </h3>
   	</form>
 
-  	<div id="tooltip" class="hidden">
+  	<div id="tooltip" class="hidden noselect">
         <p id="tooltip-value"></p>
 	</div>
 
