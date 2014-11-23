@@ -176,6 +176,10 @@ user-select: none;
    margin-left: 5px;
 }
 
+#top-node {
+    color: white;
+}
+
 /*span.glypicon-search {
     font-size: .5em !important;
 }*/

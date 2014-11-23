@@ -5,12 +5,6 @@ function to_string(obj) {
 
 function threshold(thresh) {
     link.attr('visibility', function(d){
-        console.log(d.source.attr('visibility', 'hidden'));
-        console.log(d.target.attr('visibility', 'hidden'));
-        // if (d.value < thresh) {
-        //   d.source.attr('visibility', 'hidden');
-        //   d.target.attr('visibility', 'hidden');
-        // }
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
 }
@@ -167,7 +161,18 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
 
 
-  console.log(Math.max.apply(Math, node[0].map(function(o){return o.__data__.size;})));
+  // console.log(Math.max.apply(Math, node[0].map(function(o){return o.__data__.size;})));
+  var arr = node[0].map(function(o){return o.__data__.size;});
+  var max = 0;
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i]>max) {max=i};
+  };
+
+  console.log(node[0][max].__data__.name);
+
+  $('#top-node').text("The largest group is "+ node[0][max].__data__.name + " with " + node[0][max].__data__.size + " members.");
+
+
 
   // this function looks up whether a pair are neighbours
   function neighboring(a, b) {
@@ -193,6 +198,22 @@ d3.json("../json/fb-4.json", function(error, graph) {
       }
   }
 
+  function hide_nodes(nodes_array) {
+    remove_nodes = [];
+
+    node.style("opacity", function (o) { 
+      remove = $.inArray(o.category, nodes_array) == -1;
+      if (remove) { remove_nodes.push(o.id) };
+      return (remove) ? 0 : 1; 
+    });
+
+    link.style("opacity", function (e) { 
+      connects_source = $.inArray(e.source.id, remove_nodes) != -1;
+      connects_target = $.inArray(e.target.id, remove_nodes) != -1;
+      return (connects_source || connects_target) ? 0 : 1; 
+    });
+  }
+
   // search autocomplete
   var optArray = [];
   for (var i = 0; i < graph.nodes.length - 1; i++) {
@@ -216,21 +237,38 @@ d3.json("../json/fb-4.json", function(error, graph) {
           .attr("cy", function(d) { return d.y; });
   });
 
+  // SWITCHES
+  var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+  elems.forEach(function(html) {
+    var switchery = new Switchery(html, { color: '#41b7f1' });
+  });
+
+  var changeCheckboxes = $('.js-check-change');
+
+  changeCheckboxes.onchange = function() {
+    alert(changeCheckbox.checked);
+  };
+
+  for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
+    changeCheckboxes[i].onchange = categories_changed;
+  };
+
+  function categories_changed() {
+    node.style("opacity", 1);
+    link.style("opacity", 1);
+
+    categories_on = [];
+    for ( var i = 0; i < changeCheckboxes.length; i++ ) {
+      if (changeCheckboxes[i].checked) {
+        categories_on.push(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML);
+      }
+    }
+    hide_nodes(categories_on);
+    return;
+  }
+
 });
 
 
 
-// SWITCHES
-
-var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
-elems.forEach(function(html) {
-  var switchery = new Switchery(html, { color: '#41b7f1' });
-});
-
-var changeCheckboxes = $('.js-check-change');
-
-for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
-    console.log(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML)
- 
-}
