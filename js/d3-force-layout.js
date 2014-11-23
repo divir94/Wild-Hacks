@@ -72,6 +72,26 @@ function hide_label() {
 }
 
 
+function connectedNodes() {
+    if (toggle == 0) {
+        //Reduce the opacity of all but the neighbouring nodes
+        d = d3.select(this).node().__data__;
+        node.style("opacity", function (o) {
+            return neighboring(d, o) | neighboring(o, d) ? 1 : 0;
+        });
+        link.style("opacity", function (o) {
+            return d.id==o.source.id | d.id==o.target.id ? 1 : 0;
+        });
+        //Reduce the op
+        toggle = 1;
+    } else {
+        //Put them back to opacity=1
+        node.style("opacity", 1);
+        link.style("opacity", 1);
+        toggle = 0;
+    }
+}
+
 // search node
 function searchNode() {
   //find the node
@@ -149,6 +169,7 @@ d3.json("../json/new-fb.json", function(error, graph) {
     }
 
     // add links and nodes
+    console.log(graph)
     edges = edge_index_to_id(graph);
     update_slider_range(edges);
 
@@ -201,4 +222,14 @@ d3.json("../json/new-fb.json", function(error, graph) {
             .attr("cy", function(d) { return d.y; });
     });
 
+});
+
+
+
+// SWITCHES
+
+var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+elems.forEach(function(html) {
+  var switchery = new Switchery(html, { color: '#41b7f1' });
 });
