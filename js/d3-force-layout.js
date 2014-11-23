@@ -38,7 +38,7 @@ function update_slider_range(edges) {
 }
 
 
-d3.json("../json/fb-3.json", function(error, graph) {
+d3.json("../json/fb-4.json", function(error, graph) {
   window.graph = graph
 
   // initialize graph
@@ -60,18 +60,18 @@ d3.json("../json/fb-3.json", function(error, graph) {
   function edge_index_to_id(graph) {
     var edges = [];
     graph.links.forEach(function(e) {
-        var sourceNode = graph.nodes.filter(function(n) {
-            return n.id === e.source;
-        })[0],
-            targetNode = graph.nodes.filter(function(n) {
-                return n.id === e.target;
-            })[0];
+      var sourceNode = graph.nodes.filter(function(n) {
+          return n.id === e.source;
+      })[0],
+          targetNode = graph.nodes.filter(function(n) {
+              return n.id === e.target;
+          })[0];
 
-        edges.push({
-            source: sourceNode,
-            target: targetNode,
-            value: e.value
-        });
+      edges.push({
+          source: sourceNode,
+          target: targetNode,
+          value: e.value
+      });
     });
     return edges;
   }
@@ -90,7 +90,7 @@ d3.json("../json/fb-3.json", function(error, graph) {
       // show nodes
       d3.selectAll(".node, .link")
         .transition()
-        .duration(3000)
+        .duration(2000)
         .style("opacity", 1);
     } else {
       connectedNodes(findNode(selectedVal));
@@ -104,7 +104,7 @@ d3.json("../json/fb-3.json", function(error, graph) {
     d3.select("#tooltip")
       .style("left", d.x + "px")
       .style("top", d.y + "px")
-      .select("#tooltip-value").text(d.name);
+      .select("#tooltip-value").html("Name: " + d.name + "<p>Category: " + d.category + "</p>");
 
     //Show the tooltip
     d3.select("#tooltip").classed("hidden", false);
@@ -139,7 +139,7 @@ d3.json("../json/fb-3.json", function(error, graph) {
     .attr("class", "node")
     .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size) : 1; })
     .style("fill", function(d) { return color(d.size); })
-    //.call(force.drag)
+    .call(force.drag)
     .on("mouseover", function(d) { add_label(d) })
     .on("mouseout", function(d) { hide_label() })
     .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
@@ -157,7 +157,6 @@ d3.json("../json/fb-3.json", function(error, graph) {
   graph.links.forEach(function (d) {
       linkedByIndex[d.source + "," + d.target] = 1;
   });
-
 
   // this function looks up whether a pair are neighbours
   function neighboring(a, b) {
