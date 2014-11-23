@@ -4,6 +4,7 @@ function to_string(obj) {
 
 function threshold(thresh) {
     link.attr('visibility', function(d){
+        console.log(d);
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
 }
@@ -241,10 +242,14 @@ elems.forEach(function(html) {
   var switchery = new Switchery(html, { color: '#41b7f1' });
 });
 
-var changeCheckbox = document.querySelector('.js-check-change');
+var changeCheckboxes = $('.js-check-change');
+
 
 changeCheckbox.onchange = function() {
   alert(changeCheckbox.checked);
 };
 
-
+for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
+    console.log(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML)
+ 
+}
