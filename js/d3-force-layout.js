@@ -3,8 +3,12 @@ function to_string(obj) {
 }
 
 function threshold(thresh) {
+    link.
     link.attr('visibility', function(d){
         console.log(d);
+        if (d.value >= thresh):
+          d.
+
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
 }
