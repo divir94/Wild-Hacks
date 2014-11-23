@@ -101,13 +101,29 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
   function add_label(d) {
     //Update the tooltip position and value
+    categories_on = [];
+    for ( var i = 0; i < changeCheckboxes.length; i++ ) {
+      if (changeCheckboxes[i].checked) {
+        categories_on.push(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML);
+      }
+    }
     d3.select("#tooltip")
       .style("left", d.x + "px")
       .style("top", d.y + "px")
       .select("#tooltip-value").html("Name: " + d.name + "<p>Category: " + d.category + "</p>");
 
-    //Show the tooltip
-    d3.select("#tooltip").classed("hidden", false);
+    console.log(d.category, categories_on);
+
+    if (categories_on.indexOf(d.category) > -1) {
+      d3.select("#tooltip").classed("hidden", false);
+    } 
+    // else {
+    // //Not in the array
+    // }
+    // if ([d.category] in categories_on){
+    //   console.log('in here')
+    //   d3.select("#tooltip").classed("hidden", false);
+    // }
   }
 
   function hide_label() {
@@ -264,6 +280,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
       }
     }
     hide_nodes(categories_on);
+
     return;
   }
 
