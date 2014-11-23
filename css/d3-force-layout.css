@@ -130,7 +130,7 @@ user-select: none;
     position: absolute;
     top: 0px;
     right: 0px;
-    width: 20%;
+    width: 28%;
     height: 100%;
     display: table;
 /*    -webkit-filter: blur(20px);
@@ -154,7 +154,7 @@ user-select: none;
 
 .check-text {
     color: white;
-    font-size: .7em;
+    font-size: .8em;
 }
 
 #sliderMin {
