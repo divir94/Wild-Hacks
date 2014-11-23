@@ -217,8 +217,9 @@ elems.forEach(function(html) {
   var switchery = new Switchery(html, { color: '#41b7f1' });
 });
 
-var changeCheckbox = document.querySelector('.js-check-change');
+var changeCheckbox = $('.js-check-change');
 
-changeCheckbox.onchange = function() {
-  alert(changeCheckbox.checked);
-};
+for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
+    console.log(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML)
+ 
+}
