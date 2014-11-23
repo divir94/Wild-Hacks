@@ -4,11 +4,11 @@
 <head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="js/jquery-1.10.2.js"></script>
-<link rel="stylesheet" type="text/css" href="css/d3-force-layout.css">
+	<link rel="stylesheet" type="text/css" href="css/d3-force-layout.css">
   <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="../jq/jquery-ui.css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="dist/switchery.css" />
+  <link rel="stylesheet" href="dist/switchery.css"/>
 	<script src="dist/switchery.js"></script>
 
 </head>
@@ -25,9 +25,9 @@
     <div class="toolbar">
       <div class="tool-div">
           <form id="slider">
-            <h3> Link threshold <br><span id="sliderMin"></span> <span id="sliderMax"></span> 
+            <h4 class="slider-text"> Minimum edges <br><span id="sliderMin"></span> <span id="sliderMax"></span> 
               <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> 
-            </h3>
+            </h4>
           </form>
           <div class="ui-widget">
           	<div id="search-wrap">
@@ -40,48 +40,48 @@
         <div class="row">
           <div class="col-lg-6">
           	<div id="format">
-				<input type="checkbox" class="js-switch" checked /> <span class="check-text">Clubs</span>
+				<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Clubs</span></div>
 			</div>
 		</div>
       <div class="col-lg-6">
           	<div id="format">
-				<input type="checkbox" class="js-switch" checked /> <span class="check-text">Degree</span>
+				<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Degree</span></div>
 			</div>
 		</div>
 		</div>
 		<div class="row">
             <div class="col-lg-6">
 	          	<div id="format">
-					<input type="checkbox" class="js-switch" checked /> <span class="check-text">Greek</span>
+					<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Greek</span></div>
 				</div>
 			</div>
             <div class="col-lg-6">
 	          	<div id="format">
-					<input type="checkbox" class="js-switch" checked /> <span class="check-text">Residence</span>
+					<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Residence</span></div>
 				</div>
 			</div>
 		</div>
         <div class="row">
           <div class="col-lg-6">
           	<div id="format">
-				<input type="checkbox" class="js-switch" checked /> <span class="check-text">Locations</span>
+					<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Locations</span></div>
 			</div>
 			</div>
 	      <div class="col-lg-6">
           	<div id="format">
-				<input type="checkbox" class="js-switch" checked /> <span class="check-text">Classifieds</span>
+					<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Classifieds</span></div>
 			</div>
 		</div>
 		</div>
         <div class="row">
           <div class="col-lg-6">
           	<div id="format">
-				<input type="checkbox" class="js-switch" checked /> <span class="check-text">Graduation</span>
+					<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Graduation</span></div>
 			</div>
 			</div>
 	      <div class="col-lg-6">
           	<div id="format">
-				<input type="checkbox" class="js-switch" checked /> <span class="check-text">Schools</span>
+					<div class="check-wrapper"><input type="checkbox" class="js-switch js-check-change" checked /> <span class="check-text">Schools</span></div>
 			</div>
 		</div>
 		</div>

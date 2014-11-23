@@ -3,7 +3,12 @@ function to_string(obj) {
 }
 
 function threshold(thresh) {
+    link.
     link.attr('visibility', function(d){
+        console.log(d);
+        if (d.value >= thresh):
+          d.
+
         return (d.value >= thresh) ? 'visible' : 'hidden';
     });
 }
@@ -38,7 +43,7 @@ function update_slider_range(edges) {
 }
 
 
-d3.json("../json/fb-3.json", function(error, graph) {
+d3.json("../json/fb-4.json", function(error, graph) {
   window.graph = graph
 
   // initialize graph
@@ -60,18 +65,18 @@ d3.json("../json/fb-3.json", function(error, graph) {
   function edge_index_to_id(graph) {
     var edges = [];
     graph.links.forEach(function(e) {
-        var sourceNode = graph.nodes.filter(function(n) {
-            return n.id === e.source;
-        })[0],
-            targetNode = graph.nodes.filter(function(n) {
-                return n.id === e.target;
-            })[0];
+      var sourceNode = graph.nodes.filter(function(n) {
+          return n.id === e.source;
+      })[0],
+          targetNode = graph.nodes.filter(function(n) {
+              return n.id === e.target;
+          })[0];
 
-        edges.push({
-            source: sourceNode,
-            target: targetNode,
-            value: e.value
-        });
+      edges.push({
+          source: sourceNode,
+          target: targetNode,
+          value: e.value
+      });
     });
     return edges;
   }
@@ -90,7 +95,7 @@ d3.json("../json/fb-3.json", function(error, graph) {
       // show nodes
       d3.selectAll(".node, .link")
         .transition()
-        .duration(3000)
+        .duration(2000)
         .style("opacity", 1);
     } else {
       connectedNodes(findNode(selectedVal));
@@ -104,7 +109,7 @@ d3.json("../json/fb-3.json", function(error, graph) {
     d3.select("#tooltip")
       .style("left", d.x + "px")
       .style("top", d.y + "px")
-      .select("#tooltip-value").text(d.name);
+      .select("#tooltip-value").html("Name: " + d.name + "<p>Category: " + d.category + "</p>");
 
     //Show the tooltip
     d3.select("#tooltip").classed("hidden", false);
@@ -139,7 +144,7 @@ d3.json("../json/fb-3.json", function(error, graph) {
     .attr("class", "node")
     .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size) : 1; })
     .style("fill", function(d) { return color(d.size); })
-    //.call(force.drag)
+    .call(force.drag)
     .on("mouseover", function(d) { add_label(d) })
     .on("mouseout", function(d) { hide_label() })
     .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
@@ -157,7 +162,6 @@ d3.json("../json/fb-3.json", function(error, graph) {
   graph.links.forEach(function (d) {
       linkedByIndex[d.source + "," + d.target] = 1;
   });
-
 
   // this function looks up whether a pair are neighbours
   function neighboring(a, b) {
@@ -182,6 +186,30 @@ d3.json("../json/fb-3.json", function(error, graph) {
         toggle = 0;
       }
   }
+
+  function hide_nodes(nodes_array) {
+    node.style("opacity", 1);
+    link.style("opacity", 1);
+
+    remove_nodes = [];
+
+    node.style("opacity", function (o) { 
+      remove = $.inArray(o.category, nodes_array) == -1;
+      if (remove) { remove_nodes.push(o.id) };
+      return (remove) ? 0 : 1; 
+    });
+
+    console.log(remove_nodes);
+
+    link.style("opacity", function (e) { 
+      console.log(e.source.id, e.target.id);
+      connects_source = $.inArray(e.source.id, remove_nodes) != -1;
+      connects_target = $.inArray(e.target.id, remove_nodes) != -1;
+      return (connects_source || connects_target) ? 0 : 1; 
+    });
+  }
+
+  hide_nodes(["Location/Time Groups", "Student Organization/Club Groups"]);
 
   // search autocomplete
   var optArray = [];
@@ -217,3 +245,15 @@ var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 elems.forEach(function(html) {
   var switchery = new Switchery(html, { color: '#41b7f1' });
 });
+
+var changeCheckboxes = $('.js-check-change');
+
+
+changeCheckbox.onchange = function() {
+  alert(changeCheckbox.checked);
+};
+
+for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
+    console.log(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML)
+ 
+}
