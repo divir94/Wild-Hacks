@@ -1,3 +1,9 @@
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+
 .node {
     stroke: #fff;
     stroke-width: 1.5px;
@@ -8,37 +14,161 @@
 }
 
 h3 {
-    color: #1ABC9C;
-    text-align:center;  
-    font-style: italic;
+    color: white;
+    text-align:center;
     font-size: 14px;
     font-family: "Helvetica";
 }
 
 #tooltip {
-        position: absolute;
-        width: 200px;
-        height: auto;
-        padding: 10px;
-        background-color: white;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-        pointer-events: none;
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
 }
 
 #tooltip.hidden {
-        display: none;
+    display: none;
 }
 
 #tooltip p {
-        margin: 0;
-        font-family: sans-serif;
-        font-size: 16px;
-        line-height: 20px;
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+/* CONTENT WRAPPER */
+
+.content-background {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #12111c;
+}
+
+.content-blur {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: inline-block;
+    background-image: url(../img/space2.jpg);
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+    opacity: 0.95;
+    background-size: cover;
+}
+
+.content {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
+
+/* SLIDER */
+
+#slider {
+    width: 100%;
+    /*z-index: 10;*/
+}
+
+/* NAVBAR */
+
+#navbar {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    /*z-index: 10;*/
+}
+
+/* SVG */
+
+#svg-attach {
+    width: 960px;
+    float: left;
+}
+
+/* TOOLBAR */
+
+.toolbar {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 20%;
+    height: 100%;
+    display: table;
+/*    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -o-filter: blur(20px);
+    -ms-filter: blur(20px);
+    filter: blur(20px);*/
+    opacity: 0.7;
+}
+
+.tool-div {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 33.3%;
+    background-color: rgba(0,0,0, 0.5);
+    border-bottom: 2px solid black;
+}
+
+/* FILTERS */
+
+#sliderMin {
+    float: left;
+}
+
+#sliderMax {
+    float:right;
+}
+
+
+/*override bootstrap*/
+input[type="checkbox"]:not(:checked) + label:before,
+input[type="checkbox"]:checked + label:before {
+   content: '';
+   position: absolute;
+   left:0; top: 2px;
+   width: 17px; height: 17px;
+   border: 1px solid #aaa;
+   background: red;
+   border-radius: 3px;
+   box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+}
+/* checked mark aspect */
+input[type="checkbox"]:not(:checked) + label:after,
+input[type="checkbox"]:checked + label:after {
+    content: '✔';
+    position: absolute;
+    top: 0; left: 4px;
+    font-size: 14px;
+    color: blue;
+    transition: all .2s;
+    -webkit-transition: all .2s;
 }
 
 .noselect {

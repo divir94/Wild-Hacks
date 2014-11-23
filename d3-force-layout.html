@@ -4,22 +4,73 @@
 <head>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="js/jquery-1.10.2.js"></script>
-  <script type='text/javascript' src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"> </script>
-  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/d3-force-layout.css">
 </head>
 <body>
-  	<form  class="noselect">
-    	<h3> Link threshold <span id="sliderMin"></span> <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> <span id="sliderMax"></span> </h3>
-  	</form>
-  	<div class="ui-widget">
-	   <input id="search">
-	    <button type="button" onclick="searchNode()">Search</button>
-	</div>
+  <div class="content-background">
+  </div>
+  <div class="content-blur">
+  </div>
+  <div class="content">
+      <div id="tooltip" class="hidden">
+          <p id="tooltip-value"></p>
+    </div>
 
-  	<div id="tooltip" class="hidden noselect">
-        <p id="tooltip-value"></p>
-	</div>
+    <div class="ui-widget">
+       <input id="search">
+        <button type="button" onclick="searchNode()">Search</button>
+    </div>
+
+    <div class="toolbar">
+      <div class="tool-div">
+          <form id="slider">
+            <h3> Link threshold <br><span id="sliderMin"></span> <span id="sliderMax"></span> 
+              <input type="range" id="thersholdSlider" name="points" value = 0 min="0" max="10" onchange="threshold(this.value)"> 
+            </h3>
+          </form>
+      </div>
+      <div class="tool-div">
+        <div class="row">
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter1"> Filter1
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter2"> Filter2
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter3"> Filter3
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <div class="row">
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter1"> Filter1
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter2"> Filter2
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter3"> Filter3
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <div class="row">
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter1"> Filter1
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter2"> Filter2
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-4">
+          <input type="checkbox" name="sex" value="filter3"> Filter3
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+      </div>
+      <div class="tool-div">
+      </div>
+    </div>
+    <div id="svg-grab">
+    </div>
+  </div>
 
 </body>
 

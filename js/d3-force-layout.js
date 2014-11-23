@@ -107,7 +107,7 @@ d3.json("../json/new-fb.json", function(error, graph) {
         .linkDistance(200)
         .size([width, height]);
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#svg-grab").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -185,11 +185,11 @@ d3.json("../json/new-fb.json", function(error, graph) {
         optArray.push(graph.nodes[i].name);
     }
     optArray = optArray.sort();
-    $(function () {
-        $("#search").autocomplete({
-            source: optArray
-        });
-    });
+    // $(function () {
+    //     $("#search").autocomplete({
+    //         source: optArray
+    //     });
+    // });
 
     force.on("tick", function() {
         link.attr("x1", function(d) { return d.source.x; })
