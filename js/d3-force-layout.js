@@ -32,8 +32,8 @@ function update_slider_range(edges) {
     min_link_value = Math.min.apply(Math,edges.map(function(o){return o.value;}))
     max_link_value = Math.max.apply(Math,edges.map(function(o){return o.value;}))
     $( "#thersholdSlider" ).attr( "max", max_link_value );
-    $( "#silderMin" ).html( min_link_value );
-    $( "#silderMax" ).html( max_link_value );
+    $( "#sliderMin" ).html( min_link_value );
+    $( "#sliderMax" ).html( max_link_value );
 }
 
 function add_label(d) {
@@ -65,7 +65,7 @@ d3.json("../json/fb.json", function(error, graph) {
         .linkDistance(200)
         .size([width, height]);
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#svg-grab").append("svg")
         .attr("width", width)
         .attr("height", height);
 
