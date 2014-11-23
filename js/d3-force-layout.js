@@ -136,7 +136,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
     .attr("class", "node")
     .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*2 : 1; })
     .style("fill", function(d) { return color(d.size); })
-    //.call(force.drag)
+    .call(force.drag)
     .on("mouseover", function(d) { add_label(d) })
     .on("mouseout", function(d) { hide_label() })
     .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
