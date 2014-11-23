@@ -49,7 +49,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
   var color = d3.scale.category20();
 
   window.force = d3.layout.force()
-      .charge(-10)
+      .charge(-15)
       .linkDistance(200)
       .size([width, height]);
 
@@ -83,7 +83,6 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
   // search node
   function searchNode() {
-    console.log("search")
     //find the node
     var selectedVal = $('#search').val();
 
@@ -138,7 +137,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
     .enter()
     .append("circle")
     .attr("class", "node")
-    .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size) : 1; })
+    .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*2 : 1; })
     .style("fill", function(d) { return color(d.size); })
     .call(force.drag)
     .on("mouseover", function(d) { add_label(d) })
