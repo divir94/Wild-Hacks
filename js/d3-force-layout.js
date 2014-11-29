@@ -9,6 +9,39 @@ function threshold(thresh) {
     });
 }
 
+// JSON filtering functions
+
+function exclude_categories_nodes(json_data, exclude_categories) {
+    var trash_list = []
+    var filtered_json = _.filter(json_data, function(e) {
+      // console.log(exclude_categories);
+      if (_.contains(exclude_categories, e.category)) {
+        return e;
+      } else {
+        trash_list.push(e);
+        // this is just IM sports right now
+      }
+    });
+
+
+    return filtered_json;
+}
+
+// maybe combine these two functions
+
+function exclude_categories_links(json_data, exclude_categories) {
+    var trash_list = [];
+    var filtered_json = _.filter(json_data, function(e) {
+      if (_.contains(json_data, e.source.category) | _.contains(json_data, e.target.category)) {
+        trash_list.push(e);
+      } else {
+        return e;
+      }
+    });
+
+    return filtered_json;
+}
+
 //adjust threshold
 // function threshold(thresh) {
 //     debugger;
@@ -44,7 +77,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
   // initialize graph
   var width = 1024,
-      height = 650;
+      height = 800;
 
   var color = d3.scale.category20();
 
@@ -74,6 +107,29 @@ d3.json("../json/fb-4.json", function(error, graph) {
           value: e.value
       });
     });
+    return edges;
+  }
+
+  function update_edge_index_to_id(nodes, links) {
+    var edges = [];
+    console.log(links)
+    links.forEach(function(e) {
+      var sourceNode = nodes.filter(function(n) {
+          return n.id === e.source;
+      })[0],
+          targetNode = nodes.filter(function(n) {
+              return n.id === e.target;
+      })[0];
+
+      if (sourceNode && targetNode) {
+        edges.push({
+            source: sourceNode,
+            target: targetNode,
+            value: e.value
+        });
+      }
+    });
+
     return edges;
   }
 
@@ -112,8 +168,6 @@ d3.json("../json/fb-4.json", function(error, graph) {
       .style("top", d.y + "px")
       .select("#tooltip-value").html("Name: " + d.name + "<p>Category: " + d.category + "</p>");
 
-    console.log(d.category, categories_on);
-
     if (categories_on.indexOf(d.category) > -1) {
       d3.select("#tooltip").classed("hidden", false);
     } 
@@ -134,31 +188,35 @@ d3.json("../json/fb-4.json", function(error, graph) {
   edges = edge_index_to_id(graph);
   update_slider_range(edges);
 
+  console.log(edges);
+
   force
     .nodes(graph.nodes)
     .links(edges)
     .start();
 
   // make links
-  window.link = svg.selectAll(".link")
-    .data(edges)
-    .enter()
-    .append("line")
-    .attr("class", "link")
-    .style("stroke-width", function(d) { return Math.log(d.value); });
+  var link = svg.selectAll(".link")
+                .data(edges)
+    
+  link.enter()
+      .append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.log(d.value); });
 
   // make nodes
-  window.node = svg.selectAll(".node")
+  var node = svg.selectAll(".node")
     .data(graph.nodes)
-    .enter()
-    .append("circle")
-    .attr("class", "node")
-    .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*2 : 1; })
-    .style("fill", function(d) { return color(d.size); })
-    .call(force.drag)
-    .on("mouseover", function(d) { add_label(d) })
-    .on("mouseout", function(d) { hide_label() })
-    .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
+
+  node.enter()
+      .append("circle")
+      .attr("class", "node")
+      .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*4 : 1; })
+      .style("fill", function(d) { return color(d.size); })
+      .call(force.drag)
+      .on("mouseover", function(d) { add_label(d) })
+      .on("mouseout", function(d) { hide_label() })
+      .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
 
 
   // show only neighbors
@@ -213,20 +271,63 @@ d3.json("../json/fb-4.json", function(error, graph) {
       }
   }
 
-  function hide_nodes(nodes_array) {
-    remove_nodes = [];
+  function update_nodes(nodes_array) {
+    console.log(nodes_array);
+    var filtered_nodes = exclude_categories_nodes(graph.nodes, nodes_array);
+    var filtered_links = exclude_categories_links(graph.links, filtered_nodes);
+    console.log(filtered_links);
+    // d3 hurts my brain
 
-    node.style("opacity", function (o) { 
-      remove = $.inArray(o.category, nodes_array) == -1;
-      if (remove) { remove_nodes.push(o.id) };
-      return (remove) ? 0 : 1; 
+    // grab the update nodes
+    var node = svg.selectAll(".node").data(filtered_nodes);
+    var edges = update_edge_index_to_id(filtered_nodes, graph.links);
+
+
+    var link = svg.selectAll(".link").data(edges)
+    link.exit().remove();
+    node.exit().remove();
+
+    link.enter()
+      .append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.log(d.value); });
+    // remove exit nodes
+
+
+    // append enter nodes
+    node.enter()
+        .append("circle")
+        .attr("class", "node")
+        .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*4 : 1; })
+        .style("fill", function(d) { return color(d.size); })
+        .call(force.drag)
+        .on("mouseover", function(d) { add_label(d) })
+        .on("mouseout", function(d) { hide_label() })
+        .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
+
+    force.on("tick", function() {
+      link.attr("x1", function(d) { return d.source.x; })
+          .attr("y1", function(d) { return d.source.y; })
+          .attr("x2", function(d) { return d.target.x; })
+          .attr("y2", function(d) { return d.target.y; });
+
+      node.attr("cx", function(d) { return d.x; })
+          .attr("cy", function(d) { return d.y; });
     });
 
-    link.style("opacity", function (e) { 
-      connects_source = $.inArray(e.source.id, remove_nodes) != -1;
-      connects_target = $.inArray(e.target.id, remove_nodes) != -1;
-      return (connects_source || connects_target) ? 0 : 1; 
-    });
+
+    // var filtered_links = exclude_categories_links(link[0], filtered_nodes);
+    // node.style("opacity", function (o) { 
+    //   remove = $.inArray(o.category, nodes_array) == -1;
+    //   if (remove) { remove_nodes.push(o.id) };
+    //   return (remove) ? 0 : 1; 
+    // });
+
+    // link.style("opacity", function (e) { 
+    //   connects_source = $.inArray(e.source.id, remove_nodes) != -1;
+    //   connects_target = $.inArray(e.target.id, remove_nodes) != -1;
+    //   return (connects_source || connects_target) ? 0 : 1; 
+    // });
   }
 
   // search autocomplete
@@ -261,11 +362,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
   var changeCheckboxes = $('.js-check-change');
 
-  changeCheckboxes.onchange = function() {
-    alert(changeCheckbox.checked);
-  };
-
-  for ( var i = 0; i < changeCheckboxes.length-1; i++ ) {
+  for ( var i = 0; i < changeCheckboxes.length; i++ ) {
     changeCheckboxes[i].onchange = categories_changed;
   };
 
@@ -279,7 +376,8 @@ d3.json("../json/fb-4.json", function(error, graph) {
         categories_on.push(changeCheckboxes[i].parentNode.querySelector('.check-text').innerHTML);
       }
     }
-    hide_nodes(categories_on);
+
+    update_nodes(categories_on);
 
     return;
   }

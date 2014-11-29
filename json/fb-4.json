@@ -70,7 +70,7 @@
         "id": 13,
         "size": 18
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Acting",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yl/r/aMU7VlKPlhg.png",
@@ -84,7 +84,7 @@
         "id": 16,
         "size": 3
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "AFAM",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yo/r/IxDugidbYs8.png",
@@ -203,7 +203,7 @@
         "id": 37,
         "size": 17
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Arabic",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
@@ -343,7 +343,7 @@
         "id": 61,
         "size": 65
     }, {
-        "category": "MajorS",
+        "category": "Majors",
         "description": "",
         "name": "BioEXCEL",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yM/r/2hqJbKYW_-D.png",
@@ -357,7 +357,7 @@
         "id": 64,
         "size": 318
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n",
         "name": "Biology",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/-HwODK0dBGZ.png",
@@ -441,7 +441,7 @@
         "id": 76,
         "size": 12
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n\n\n\n",
         "name": "Business",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
@@ -546,7 +546,7 @@
         "id": 91,
         "size": 179
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n\n\n\n\n\n",
         "name": "Chemistry",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/-HwODK0dBGZ.png",
@@ -763,7 +763,7 @@
         "id": 123,
         "size": 531
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Conducting",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/CQ31twhEB1j.png",
@@ -875,7 +875,7 @@
         "id": 140,
         "size": 188
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Design",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yY/r/RWCMaWp_Jh6.png",
@@ -903,14 +903,14 @@
         "id": 144,
         "size": 2
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Diversity and Inclusion",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
         "id": 145,
         "size": 19
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Diversity and Inequality",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yj/r/KkhgNWn5KGL.png",
@@ -938,7 +938,7 @@
         "id": 149,
         "size": 17
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Earth",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yX/r/6n-kQKox7ur.png",
@@ -966,7 +966,7 @@
         "id": 153,
         "size": 33
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n\n\n\n\n\n\n",
         "name": "Economics",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yB/r/odyq1oFT40B.png",
@@ -1001,7 +1001,7 @@
         "id": 158,
         "size": 11
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n\n\n\n\n\n\n\n\n\n",
         "name": "Engineering",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yt/r/_9rFHMj4DIY.png",
@@ -1253,7 +1253,7 @@
         "id": 196,
         "size": 36
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Game Theory",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
@@ -1288,7 +1288,7 @@
         "id": 201,
         "size": 37
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Gender Poltics",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/XCrOg4YmGg4.png",
@@ -1302,14 +1302,14 @@
         "id": 203,
         "size": 73
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Global Engagement Learning",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yj/r/KkhgNWn5KGL.png",
         "id": 204,
         "size": 26
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Global Media and Communications",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yN/r/O68fy4gIIq3.png",
@@ -1386,7 +1386,7 @@
         "id": 215,
         "size": 23
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Hebrew",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
@@ -1414,7 +1414,7 @@
         "id": 219,
         "size": 37
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Hindi",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yX/r/6n-kQKox7ur.png",
@@ -1428,7 +1428,7 @@
         "id": 221,
         "size": 151
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "History",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yO/r/8FV1_2QvhUa.png",
@@ -1463,7 +1463,7 @@
         "id": 226,
         "size": 12
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "IE",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/XCrOg4YmGg4.png",
@@ -1484,7 +1484,7 @@
         "id": 229,
         "size": 109
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "IMC",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yA/r/3kJYjponjaW.png",
@@ -1519,7 +1519,7 @@
         "id": 234,
         "size": 25
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Interactive Story Telling",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yz/r/vcaYZhrwr1M.png",
@@ -1533,7 +1533,7 @@
         "id": 236,
         "size": 526
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n",
         "name": "International Studies",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yF/r/qI4b0tWiFqF.png",
@@ -1547,7 +1547,7 @@
         "id": 238,
         "size": 5
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Intro to Shakespeare",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yj/r/Nf4b8HrkOWM.png",
@@ -1617,7 +1617,7 @@
         "id": 248,
         "size": 217
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Italian",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
@@ -1813,7 +1813,7 @@
         "id": 276,
         "size": 100
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Learning and Organization Change",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yz/r/vcaYZhrwr1M.png",
@@ -1827,7 +1827,7 @@
         "id": 278,
         "size": 71
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Learning Organization Change",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yk/r/WObXjmQCRAC.png",
@@ -1932,7 +1932,7 @@
         "id": 294,
         "size": 104
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n",
         "name": "Mat Sci",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/-HwODK0dBGZ.png",
@@ -1946,7 +1946,7 @@
         "id": 298,
         "size": 95
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n",
         "name": "Math",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yO/r/8FV1_2QvhUa.png",
@@ -2100,7 +2100,7 @@
         "id": 323,
         "size": 20
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n",
         "name": "Music",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yd/r/MHyYYRzc_MD.png",
@@ -2821,7 +2821,7 @@
         "id": 429,
         "size": 8
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n",
         "name": "Psychology",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yP/r/f5InzDd8rWP.png",
@@ -2961,7 +2961,7 @@
         "id": 449,
         "size": 12
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n",
         "name": "RTVF",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yD/r/kWhQzL19HIa.png",
@@ -3178,7 +3178,7 @@
         "id": 481,
         "size": 49
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n",
         "name": "Sociology",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/XCrOg4YmGg4.png",
@@ -3213,7 +3213,7 @@
         "id": 486,
         "size": 10
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n\n\n\n\n",
         "name": "Spanish",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yF/r/qI4b0tWiFqF.png",
@@ -3262,14 +3262,14 @@
         "id": 493,
         "size": 7
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "\n",
         "name": "Statistics",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/y0/r/XCrOg4YmGg4.png",
         "id": 494,
         "size": 17
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Statististics",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yi/r/82WYrGNjnKf.png",
@@ -3514,7 +3514,7 @@
         "id": 530,
         "size": 44
     }, {
-        "category": "Major",
+        "category": "Majors",
         "description": "",
         "name": "Turbo Finance",
         "icon": "https://fbstatic-a.akamaihd.net/rsrc.php/v2/yB/r/odyq1oFT40B.png",
