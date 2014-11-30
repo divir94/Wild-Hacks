@@ -159,11 +159,8 @@ d3.json("../json/fb-4.json", function(error, graph) {
     var selectedVal = $('#search').val();
 
     if (selectedVal == "") {
-      // show nodes
-      d3.selectAll(".node, .link")
-        .transition()
-        .duration(2000)
-        .style("opacity", 1);
+      restart();
+      top_group();
     } else {
       connectedNodes(findNode(selectedVal));
     }
@@ -266,6 +263,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
     $('#top-node').text("The largest group is "+ node[0][max].__data__.name + " with " + node[0][max].__data__.size + " members.");
   }
 
+  top_group();
 
   // this function looks up whether a pair are neighbours
   function neighboring(a, b) {
