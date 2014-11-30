@@ -60,7 +60,6 @@ function restart() {
   node = d3.selectAll(".node").data(graph.nodes);
   node.enter().append("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
   force.start();
-  categories_changed();
 }
 
 function update_slider_range(edges) {
@@ -257,17 +256,15 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
 
 
-  // console.log(Math.max.apply(Math, node[0].map(function(o){return o.__data__.size;})));
-  var arr = graph.nodes.map(function(o){return o.size;});
-  var max = 0;
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i]>max) {max=i};
-  };
+  function top_group() {
+    var arr = svg.selectAll(".node")[0].map(function(o){return o.__data__.size;});
+    var max = 0;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i]>arr[max]) {max=i};
+    };
 
-  console.log(node[0][max].__data__.name);
-
-  $('#top-node').text("The largest group is "+ node[0][max].__data__.name + " with " + node[0][max].__data__.size + " members.");
-
+    $('#top-node').text("The largest group is "+ node[0][max].__data__.name + " with " + node[0][max].__data__.size + " members.");
+  }
 
 
   // this function looks up whether a pair are neighbours
@@ -285,8 +282,9 @@ d3.json("../json/fb-4.json", function(error, graph) {
           neighbors.push(o);
         };
       })
+      toggle=1;
     } else {
-      categories_changed();
+      restart()
     }
 
     console.log(neighbors);
@@ -390,19 +388,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
           .attr("cy", function(d) { return d.y; });
     });
 
-
-    // var filtered_links = exclude_categories_links(link[0], filtered_nodes);
-    // node.style("opacity", function (o) { 
-    //   remove = $.inArray(o.category, nodes_array) == -1;
-    //   if (remove) { remove_nodes.push(o.id) };
-    //   return (remove) ? 0 : 1; 
-    // });
-
-    // link.style("opacity", function (e) { 
-    //   connects_source = $.inArray(e.source.id, remove_nodes) != -1;
-    //   connects_target = $.inArray(e.target.id, remove_nodes) != -1;
-    //   return (connects_source || connects_target) ? 0 : 1; 
-    // });
+    top_group();
   }
 
   // search autocomplete
