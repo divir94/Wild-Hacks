@@ -55,12 +55,12 @@ function exclude_categories_links(json_data, exclude_categories) {
 
 //Restart the visualisation after any node and link changes
 function restart() {
-  link = link.data(graph.links);
-  link.exit().remove();
-  link.enter().insert("line", ".node").attr("class", "link");
-  node = node.data(graph.nodes);
-  node.enter().insert("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
+  link = d3.selectAll(".link").data(graph.links);
+  link.enter().append("line", ".node").attr("class", "link");
+  node = d3.selectAll(".node").data(graph.nodes);
+  node.enter().append("circle", ".cursor").attr("class", "node").attr("r", 5).call(force.drag);
   force.start();
+  categories_changed();
 }
 
 function update_slider_range(edges) {
@@ -112,7 +112,23 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
   function update_edge_index_to_id(nodes, links) {
     var edges = [];
-    console.log(links)
+
+    // nodes.forEach(function(n) {
+    //   var sourceNode = links.filter(function(e) {
+    //     return e.source === n.id;
+    //   })[0],
+    //   targetNode = links.filter(function(e) {
+    //     return e.target === n.id;
+    //   });
+
+    //   if (sourceNode && targetNode) {
+    //     edges.push({
+    //       source: sourceNode,
+    //       target: targetNode,
+    //       value:
+    //     })
+    //   };
+    // })
     links.forEach(function(e) {
       var sourceNode = nodes.filter(function(n) {
           return n.id === e.source;
@@ -130,6 +146,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
       }
     });
 
+    console.log(edges);
     return edges;
   }
 
@@ -171,6 +188,12 @@ d3.json("../json/fb-4.json", function(error, graph) {
     if (categories_on.indexOf(d.category) > -1) {
       d3.select("#tooltip").classed("hidden", false);
     } 
+
+    var visible_nodes = d3.select(".node")[0];
+    var tooltips = d3.select("#tooltip")
+    console.log(tooltips);
+
+
     // else {
     // //Not in the array
     // }
@@ -235,7 +258,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
 
   // console.log(Math.max.apply(Math, node[0].map(function(o){return o.__data__.size;})));
-  var arr = node[0].map(function(o){return o.__data__.size;});
+  var arr = graph.nodes.map(function(o){return o.size;});
   var max = 0;
   for (var i = 0; i < arr.length; i++) {
     if (arr[i]>max) {max=i};
@@ -253,22 +276,74 @@ d3.json("../json/fb-4.json", function(error, graph) {
   }
 
   function connectedNodes(n) {
+    var neighbors = [];
+    var a_nodes = graph.nodes;
+    console.log(a_nodes);
     if (toggle == 0) {
-        //Reduce the opacity of all but the neighbouring nodes
-        node.style("opacity", function (o) {
-            return neighboring(n, o) | neighboring(o, n) ? 1 : 0;
-        });
-        link.style("opacity", function (o) {
-            return n.id==o.source.id | n.id==o.target.id ? 1 : 0;
-        });
-        //Reduce the op
-        toggle = 1;
+      a_nodes.forEach(function(o) {
+        if (neighboring(n, o) | neighboring(o, n)) {
+          neighbors.push(o);
+        };
+      })
     } else {
-        //Put them back to opacity=1
-        node.style("opacity", 1);
-        link.style("opacity", 1);
-        toggle = 0;
-      }
+      categories_changed();
+    }
+
+    console.log(neighbors);
+
+    var node = svg.selectAll(".node").data(neighbors);
+    var edges = update_edge_index_to_id(neighbors, graph.links);
+    var link = svg.selectAll(".link").data(edges)
+    link.exit().remove();
+    node.exit().remove();
+
+    link.enter()
+      .append("line")
+      .attr("class", "link")
+      .style("stroke-width", function(d) { return Math.log(d.value); });
+    // remove exit nodes
+
+
+    // append enter nodes
+    node.enter()
+        .append("circle")
+        .attr("class", "node")
+        .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*4 : 1; })
+        .style("fill", function(d) { return color(d.size); })
+        .call(force.drag)
+        .on("mouseover", function(d) { add_label(d) })
+        .on("mouseout", function(d) { hide_label() })
+        .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
+
+    force.on("tick", function() {
+      link.attr("x1", function(d) { return d.source.x; })
+          .attr("y1", function(d) { return d.source.y; })
+          .attr("x2", function(d) { return d.target.x; })
+          .attr("y2", function(d) { return d.target.y; });
+
+      node.attr("cx", function(d) { return d.x; })
+          .attr("cy", function(d) { return d.y; });
+    });
+
+
+
+
+
+    //     //Reduce the opacity of all but the neighbouring nodes
+    //     node.style("opacity", function (o) {
+    //         return neighboring(n, o) | neighboring(o, n) ? 1 : 0;
+    //     });
+    //     link.style("opacity", function (o) {
+    //         return n.id==o.source.id | n.id==o.target.id ? 1 : 0;
+    //     });
+    //     //Reduce the op
+    //     toggle = 1;
+    // } else {
+    //     //Put them back to opacity=1
+    //     node.style("opacity", 1);
+    //     link.style("opacity", 1);
+    //     toggle = 0;
+    //   }
   }
 
   function update_nodes(nodes_array) {
@@ -367,8 +442,8 @@ d3.json("../json/fb-4.json", function(error, graph) {
   };
 
   function categories_changed() {
-    node.style("opacity", 1);
-    link.style("opacity", 1);
+    // node.style("opacity", 1);
+    // link.style("opacity", 1);
 
     categories_on = [];
     for ( var i = 0; i < changeCheckboxes.length; i++ ) {
@@ -377,6 +452,7 @@ d3.json("../json/fb-4.json", function(error, graph) {
       }
     }
 
+    if (toggle==1) {restart()};
     update_nodes(categories_on);
 
     return;
