@@ -287,74 +287,29 @@ d3.json("../json/fb-4.json", function(error, graph) {
 
     console.log(neighbors);
 
-    var node = svg.selectAll(".node").data(neighbors);
     var edges = update_edge_index_to_id(neighbors, graph.links);
-    var link = svg.selectAll(".link").data(edges)
-    link.exit().remove();
-    node.exit().remove();
 
-    link.enter()
-      .append("line")
-      .attr("class", "link")
-      .style("stroke-width", function(d) { return Math.log(d.value); });
-    // remove exit nodes
-
-
-    // append enter nodes
-    node.enter()
-        .append("circle")
-        .attr("class", "node")
-        .attr("r", function(d) { return (d.size > 0) ? Math.log(d.size)*4 : 1; })
-        .style("fill", function(d) { return color(d.size); })
-        .call(force.drag)
-        .on("mouseover", function(d) { add_label(d) })
-        .on("mouseout", function(d) { hide_label() })
-        .on('dblclick', function(d) { connectedNodes(d3.select(this).node().__data__) });
-
-    force.on("tick", function() {
-      link.attr("x1", function(d) { return d.source.x; })
-          .attr("y1", function(d) { return d.source.y; })
-          .attr("x2", function(d) { return d.target.x; })
-          .attr("y2", function(d) { return d.target.y; });
-
-      node.attr("cx", function(d) { return d.x; })
-          .attr("cy", function(d) { return d.y; });
-    });
-
-
-
-
-
-    //     //Reduce the opacity of all but the neighbouring nodes
-    //     node.style("opacity", function (o) {
-    //         return neighboring(n, o) | neighboring(o, n) ? 1 : 0;
-    //     });
-    //     link.style("opacity", function (o) {
-    //         return n.id==o.source.id | n.id==o.target.id ? 1 : 0;
-    //     });
-    //     //Reduce the op
-    //     toggle = 1;
-    // } else {
-    //     //Put them back to opacity=1
-    //     node.style("opacity", 1);
-    //     link.style("opacity", 1);
-    //     toggle = 0;
-    //   }
-  }
+    update_graph(neighbors, edges);
+    
+    top_group();
+  };
 
   function update_nodes(nodes_array) {
     console.log(nodes_array);
     var filtered_nodes = exclude_categories_nodes(graph.nodes, nodes_array);
     var filtered_links = exclude_categories_links(graph.links, filtered_nodes);
     console.log(filtered_links);
-    // d3 hurts my brain
-
-    // grab the update nodes
-    var node = svg.selectAll(".node").data(filtered_nodes);
+ 
     var edges = update_edge_index_to_id(filtered_nodes, graph.links);
+    update_graph(filtered_nodes, edges);
 
 
-    var link = svg.selectAll(".link").data(edges)
+    top_group();
+  }
+
+  function update_graph (node_json, link_json) {
+    var node = svg.selectAll(".node").data(node_json)
+    var link = svg.selectAll(".link").data(link_json)
     link.exit().remove();
     node.exit().remove();
 
@@ -385,8 +340,6 @@ d3.json("../json/fb-4.json", function(error, graph) {
       node.attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
     });
-
-    top_group();
   }
 
   // search autocomplete
